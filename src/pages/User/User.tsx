@@ -13,13 +13,13 @@ import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
 import { useFormik } from 'formik';
-import { InputText } from 'primereact/inputtext';
 import * as Yup from 'yup';
-import toast from 'react-hot-toast';
 import InputForm from '../../components/Input/InputForm';
+import Loader from '../../common/Loader';
 const User = () => {
   const dispatch: any = useDispatch();
   const users = useSelector((state: any) => state.User.userList);
+  const loading = useSelector((state: any) => state.User.loading);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [user, setUser] = useState<any>({});
@@ -29,6 +29,8 @@ const User = () => {
   useEffect(() => {
     dispatch(getUser());
   }, []);
+
+
 
   const validation: any = useFormik({
     enableReinitialize: true,
@@ -71,7 +73,6 @@ const User = () => {
       setIsOpenModal(false);
     },
   });
-  console.log('Edit', isEdit);
 
   const openNew = () => {
     setUser('');
@@ -100,9 +101,7 @@ const User = () => {
   };
 
   const removeUser = (user: any) => {
-    console.log('Usuario', user);
     const { id } = user;
-    console.log('Id', id);
     if (id) {
       dispatch(deleteUserData(id));
     }
@@ -155,39 +154,46 @@ const User = () => {
           start={leftToolbarTemplate}
           end={rightToolbarTemplate}
         />
-        <DataTable
-          ref={dt}
-          value={users}
-          paginator
-          rows={6}
-          rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Mostrando {first} de {last} usuarios"
-        >
-          <Column
-            field="name"
-            header="Nombre"
-            sortable
-            style={{ minWidth: '12rem' }}
-          ></Column>
-          <Column
-            field="phone"
-            header="Telefono"
-            sortable
-            style={{ minWidth: '12rem' }}
-          ></Column>
-          <Column
-            field="email"
-            header="Email"
-            sortable
-            style={{ minWidth: '12rem' }}
-          ></Column>
-          <Column
-            body={actionBodyTemplate}
-            exportable={false}
-            style={{ minWidth: '12rem' }}
-          ></Column>
-        </DataTable>
+        {loading ? (
+          <>
+            {' '}
+            <Loader />
+          </>
+        ) : (
+          <DataTable
+            ref={dt}
+            value={users}
+            paginator
+            rows={6}
+            rowsPerPageOptions={[5, 10, 25]}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Mostrando {first} de {last} usuarios"
+          >
+            <Column
+              field="name"
+              header="Nombre"
+              sortable
+              style={{ minWidth: '12rem' }}
+            ></Column>
+            <Column
+              field="phone"
+              header="Telefono"
+              sortable
+              style={{ minWidth: '12rem' }}
+            ></Column>
+            <Column
+              field="email"
+              header="Email"
+              sortable
+              style={{ minWidth: '12rem' }}
+            ></Column>
+            <Column
+              body={actionBodyTemplate}
+              exportable={false}
+              style={{ minWidth: '12rem' }}
+            ></Column>
+          </DataTable>
+        )}
       </div>
 
       <Dialog
@@ -213,6 +219,7 @@ const User = () => {
               validation={validation}
               type="text"
               placeholder="Ingrese su nombre"
+              style=""
             />
 
             <InputForm
@@ -221,6 +228,7 @@ const User = () => {
               validation={validation}
               type="text"
               placeholder="Ingrese su telefoono"
+              style=""
             />
 
             <InputForm
@@ -229,6 +237,7 @@ const User = () => {
               validation={validation}
               type="email"
               placeholder="Ingrese su correo electronico"
+              style=""
             />
 
             <InputForm
@@ -237,6 +246,7 @@ const User = () => {
               validation={validation}
               type="password"
               placeholder="Ingrese su contraseña"
+              style=""
             />
 
             <div className="flex justify-end">

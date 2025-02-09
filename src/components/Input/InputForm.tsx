@@ -13,15 +13,17 @@ interface InputProps {
   };
   type?: string;
   placeholder?: string;
+  style: string;
 }
 
 const InputForm: React.FC<InputProps> = ({
   label,
   name,
   validation,
-  type = 'text',
+  type,
   placeholder,
-}) => {
+  style,
+}: any) => {
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium">{label}</label>
@@ -32,7 +34,9 @@ const InputForm: React.FC<InputProps> = ({
         onChange={validation.handleChange}
         onBlur={validation.handleBlur}
         placeholder={placeholder}
-        className="p-2 border border-solid"
+       
+        className={`p-2 border border-solid ${style}`}
+      
       />
 
       {validation.errors[name] && validation.touched[name] && (
