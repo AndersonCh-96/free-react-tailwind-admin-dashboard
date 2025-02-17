@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCustomer, getCustomers } from './thunk';
+import {
+  createCustomer,
+  deleteCustomer,
+  getCustomers,
+  updateCustomer,
+} from './thunk';
 
 export const initialState: any = {
   customerList: [],
@@ -39,6 +44,41 @@ const CustomerSlice = createSlice({
     });
 
     builder.addCase(createCustomer.rejected, (state: any, action: any) => {
+      state.error = action.payload.error || null;
+      state.loading = false;
+    });
+
+    //Update
+    builder.addCase(updateCustomer.pending, (state: any, action: any) => {
+      state.loading = true;
+    });
+    builder.addCase(updateCustomer.fulfilled, (state: any, action: any) => {
+      state.customerList = state.customerList.map((item: any) =>
+        item.id === action.meta.arg.id
+          ? { ...state.customerList, ...action.meta.arg }
+          : item,
+      );
+      state.loading = false;
+    });
+
+    builder.addCase(updateCustomer.rejected, (state: any, action: any) => {
+      state.error = action.payload.error || null;
+      state.loading = false;
+    });
+
+    //Delete
+    builder.addCase(deleteCustomer.pending, (state: any, action: any) => {
+      state.loading = true;
+    });
+
+    builder.addCase(deleteCustomer.fulfilled, (state: any, action: any) => {
+      state.customerList = state.customerList.filter(
+        (item: any) => item.id !== action.meta.arg,
+      );
+      state.loading = false;
+    });
+
+    builder.addCase(deleteCustomer.rejected, (state: any, action: any) => {
       state.error = action.payload.error || null;
       state.loading = false;
     });

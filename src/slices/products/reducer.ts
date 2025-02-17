@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createProduct, deleteProduct, getAllProducts } from './thunk';
+import {
+  createProduct,
+  deleteProduct,
+  getAllProducts,
+  updateProduct,
+} from './thunk';
 
 export const initialState: any = {
   productList: [],
@@ -43,6 +48,23 @@ const ProductSlice = createSlice({
     });
 
     //UpdateProduct
+    builder.addCase(updateProduct.pending, (state: any, action: any) => {
+      state.loading = true;
+    });
+
+    builder.addCase(updateProduct.fulfilled, (state: any, action: any) => {
+      state.productList = state.productList.map((item: any) =>
+        item.id === action.meta.arg.id
+          ? { ...state.productList, ...action.meta.arg }
+          : item,
+      );
+      state.loading = false;
+    });
+
+    builder.addCase(updateProduct.rejected, (state: any, action: any) => {
+      state.error = action.payload.error || null;
+      state.loading = false;
+    });
 
     //DeleteProduct
 

@@ -34,9 +34,7 @@ const InputForm: React.FC<InputProps> = ({
         onChange={validation.handleChange}
         onBlur={validation.handleBlur}
         placeholder={placeholder}
-       
         className={`p-2 border border-solid ${style}`}
-      
       />
 
       {validation.errors[name] && validation.touched[name] && (

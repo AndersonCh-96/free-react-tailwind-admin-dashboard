@@ -18,14 +18,44 @@ export const deleteUser = (id: any) => api.delete(`${url.GET_USERS}/${id}`);
 //Products
 export const getProducts = () => api.get(url.PRODUCT);
 export const createProduct = (product: any) => api.create(`${url.PRODUCT}/create`, product);
-export const updateProduct = (product: any) => api.update(`${url.PRODUCT}/${product.id}`, product);
+export const updateProduct = (product: any) => api.put(`${url.PRODUCT}/${product.id}`, product);
 export const deleteProduct= (id:any)=> api.delete(`${url.PRODUCT}/${id}`)
 
 
 //Customers
 export const getCustomers = ()=> api.get(url.CUSTOMER)
-export const createCustomer= (customer:any) => api.create(url.CUSTOMER,customer)
+export const createCustomer= (customer:any) => api.create(`${url.CUSTOMER}/create`,customer)
+export const updateCustomer = (customer: any) =>api.put(`${url.CUSTOMER}/${customer.id}`, customer);
+export const deleteCustomer = (id: any) => api.delete(`${url.CUSTOMER}/${id}`);
 
 //Providers
 export const getProviders = ()=> api.get(url.PROVIDER)
-export const createProvider= (provider:any) => api.create(url.PROVIDER,provider)
+export const createProvider= (provider:any) => api.create(`${url.PROVIDER}/create`,provider)
+export const updateProvider = (provider: any) =>api.put(`${url.PROVIDER}/${provider.id}`, provider);
+export const deleteProvider = (id: any) => api.delete(`${url.PROVIDER}/${id}`);
+
+//Purchase
+
+export const getPurchase = () => api.get(url.PURCHASE)
+export const getPurchaseDetails = (purchaseId:string)=> api.get(`${url.PURCHASE}/${purchaseId}`)
+export const createPurchase = (purchase:any) => api.create(`${url.PURCHASE}/create`,purchase)
+
+//Inventory
+
+export const getInventory = ()=> api.get(url.INVENTORY)
+
+//Credits
+
+export const getCredits = ()=> api.get(url.CREDITS)
+export const getCustomerCredits = (customerId:any)=> api.get(`${url.CREDITS}/${customerId}`)
+
+//Create sale
+export const getSales= ()=> api.get(url.SALES)
+export const getDetailSale= (saleId:any)=> api.get(`${url.SALES}/${saleId}`)
+export const createSale= (sale:any)=> api.create(`${url.SALES}/create`,sale)
+
+
+
+//Payment
+
+export const createPaymenCredit= (payment:any)=>api.create(`${url.PAYMENT}/create`,payment)

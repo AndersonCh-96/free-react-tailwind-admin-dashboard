@@ -67,7 +67,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <div className="w-full ">
           <NavLink to="/">
             {/* <img src={Logo} alt="Logo" /> */}
-            <h1 className='text-white text-2xl text-center font-bold '>Administrador</h1>
+            <h1 className="text-white text-2xl text-center font-bold ">
+              Administrador
+            </h1>
           </NavLink>
         </div>
 
@@ -215,8 +217,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
 
-
-
                           <li>
                             <NavLink
                               to="/providers"
@@ -229,7 +229,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
 
-
                           <li>
                             <NavLink
                               to="/customers"
@@ -239,6 +238,54 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               }
                             >
                               Clientes
+                            </NavLink>
+                          </li>
+
+                          <li>
+                            <NavLink
+                              to="/purchases"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Compras
+                            </NavLink>
+                          </li>
+
+                          <li>
+                            <NavLink
+                              to="/inventories"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Inventario
+                            </NavLink>
+                          </li>
+
+                          <li>
+                            <NavLink
+                              to="/sales"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Ventas
+                            </NavLink>
+                          </li>
+
+                          <li>
+                            <NavLink
+                              to="/credits"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Creditos
                             </NavLink>
                           </li>
                         </ul>

@@ -38,7 +38,7 @@ export const updateProduct = createAsyncThunk(
   'product/ updateProduct',
   async (product: any) => {
     try {
-      const resp = await updateProductApi(product.id);
+      const resp = await updateProductApi(product);
       toast.success('Producto actualizado con exito');
       return resp;
     } catch (error: any) {
@@ -52,9 +52,9 @@ export const deleteProduct = createAsyncThunk(
   'product/updateProduct',
   async (id: string) => {
     try {
-      const resp= await deleteProductApi(id);
+      const resp = await deleteProductApi(id);
       toast.success('Producto se elimino con exito');
-      return resp
+      return resp;
     } catch (error: any) {
       toast.error(error.message);
       return error;

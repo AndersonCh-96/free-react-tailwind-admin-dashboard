@@ -21,6 +21,7 @@ export const Product = () => {
   const [openModal, setOpenModal] = useState(false);
   const [product, setProduct] = useState<any>({});
   const [isEdit, setIsEdit] = useState(false);
+  const [deleteProductModal, setDeleteProductModal] = useState(false);
   const products = useSelector((state: any) => state.Products.productList);
   const loading = useSelector((state: any) => state.Products.loading);
   const dispatch: any = useDispatch();
@@ -50,8 +51,9 @@ export const Product = () => {
           id: product.id,
           ...validation.values,
         };
+        console.log('Prodic', productObject);
 
-        // dispatch(updateProduct(productObject));
+        dispatch(updateProduct(productObject));
       } else {
         dispatch(createProduct(validation.values));
       }
@@ -66,6 +68,7 @@ export const Product = () => {
   };
 
   const handleEditProduct = (product: any) => {
+    console.log('Produic', product);
     setOpenModal(true);
     setIsEdit(true);
     setProduct(product);
@@ -96,12 +99,23 @@ export const Product = () => {
           className="text-red"
           icon="pi pi-trash"
           severity="danger"
-          onClick={() => {
-            dispatch(deleteProduct(rowData.id));
-          }}
+          onClick={() => deleteModal(rowData)}
         />
       </React.Fragment>
     );
+  };
+
+  const deleteModal = (product: any) => {
+    setProduct(product);
+    setDeleteProductModal(true);
+  };
+
+  const removeProduct = (product: any) => {
+    const { id } = product;
+    if (id) {
+      dispatch(deleteProduct(id));
+    }
+    setDeleteProductModal(false);
   };
 
   return (
@@ -225,6 +239,42 @@ export const Product = () => {
             />
           </div>
         </form>
+      </Dialog>
+
+      <Dialog
+        visible={deleteProductModal}
+        style={{ width: '32rem' }}
+        breakpoints={{ '960px': '75vw', '641px': '90vw' }}
+        header="Confirmar"
+        modal
+        onHide={() => setDeleteProductModal(false)}
+      >
+        <div className="confirmation-content">
+          <i
+            className="pi pi-exclamation-triangle mr-3"
+            style={{ fontSize: '2rem' }}
+          />
+          {product && (
+            <span>
+              Esta seguro que desea eliminar a <b>{product.name}</b>?
+            </span>
+          )}
+        </div>
+        <div className="flex justify-end p-2 gap-5 mt-5">
+          <Button
+            label="No"
+            icon="pi pi-times"
+            className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            onClick={() => setDeleteProductModal(false)}
+          />
+          <Button
+            label="Si"
+            icon="pi pi-check"
+            severity="danger"
+            className="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            onClick={() => removeProduct(product)}
+          />
+        </div>
       </Dialog>
     </React.Fragment>
   );

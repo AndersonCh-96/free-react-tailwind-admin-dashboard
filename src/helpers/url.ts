@@ -10,8 +10,23 @@ export const PRODUCT = '/products';
 
 //Customers
 
-export const CUSTOMER = '/customer'
+export const CUSTOMER = '/customer';
 
 //Provider
 
-export const PROVIDER = '/provider'
+export const PROVIDER = '/provider';
+
+//Purchase
+export const PURCHASE = '/purchase';
+
+//Inventoru
+export const INVENTORY = '/inventory';
+
+//Sales
+export const SALES = '/sales';
+
+//Credits
+export const CREDITS = '/credits';
+
+//Payment
+export const PAYMENT = '/payment';
